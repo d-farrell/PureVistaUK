@@ -1,0 +1,8 @@
+config/settings_data.json
+README.md
+.git/
+node_modules/
+package-lock.json
+package.json
+templates/**/*.json 
+templates/*.json
