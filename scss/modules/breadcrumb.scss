@@ -1,0 +1,49 @@
+/* Breadcrumbs block – structure; settings via CSS vars from Liquid */
+.breadcrumbs {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--breadcrumbs-padding-vertical, 15px) var(--breadcrumbs-padding-horizontal, 0);
+}
+
+.breadcrumbs__nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--breadcrumbs-spacing, 8px);
+  font-size: var(--breadcrumbs-font-size, 14px);
+  font-family: var(--breadcrumbs-font-family);
+  font-weight: var(--breadcrumbs-font-weight);
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
+  gap: var(--breadcrumbs-spacing, 8px);
+}
+
+.breadcrumbs__link {
+  color: var(--breadcrumbs-link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs__link:hover {
+  color: var(--breadcrumbs-link-hover-color);
+  text-decoration: var(--breadcrumbs-hover-underline, underline);
+}
+
+.breadcrumbs__separator {
+  color: var(--breadcrumbs-separator-color);
+  user-select: none;
+}
+
+.breadcrumbs__current {
+  color: var(--breadcrumbs-current-color);
+}
+
+@media screen and (min-width: 750px) {
+  .breadcrumbs {
+    width: var(--breadcrumbs-width, 100%);
+  }
+}

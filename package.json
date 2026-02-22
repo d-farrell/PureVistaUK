@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "PureVistaUK Shopify Theme",
   "scripts": {
-    "dev": "shopify theme dev -s purevistauk",
+    "dev": "concurrently \"shopify theme dev -s purevistauk\" \"npm run watch:css\"",
+    "build:css": "sass scss/main.scss assets/base.css --no-source-map",
+    "watch:css": "sass scss/main.scss assets/base.css --watch --no-source-map",
     "deploy:live": "shopify theme push -s=purevistauk.myshopify.com -x 'package.json' -x 'package-lock.json' -x 'node_modules/' -x 'jsconfig.json' -x '.idea/' -x 'templates/**/*.json' -x 'templates/*.json' -x 'sections/*.json' -x 'templates/robots.txt.liquid' -x 'config/settings_data.json' -x 'locales/*.json' -x 'emails/*' -x 'checkout-scripts'",
     "format": "prettier \"**/*.{js,json,md}\" --write",
     "format:check": "prettier \"**/*.{js,json,md}\" --check"
   },
   "devDependencies": {
-    "prettier": "^3.6.2"
+    "concurrently": "^8.2.2",
+    "prettier": "^3.6.2",
+    "sass": "^1.69.5"
   }
 }
