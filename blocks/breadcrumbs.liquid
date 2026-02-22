@@ -1,0 +1,214 @@
+{%- assign block_id = block.id | replace: '_', '' | downcase -%}
+
+{%- style -%}
+  .breadcrumbs--{{ block_id }} {
+    --breadcrumbs-width: {{ block.settings.desktop_width_percent }}%;
+    --breadcrumbs-padding-vertical: {{ block.settings.padding_vertical }}px;
+    --breadcrumbs-padding-horizontal: {{ block.settings.padding_horizontal }}px;
+    --breadcrumbs-spacing: {{ block.settings.spacing }}px;
+    --breadcrumbs-font-size: {{ block.settings.font_size }}px;
+    --breadcrumbs-font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    --breadcrumbs-font-weight: {{ block.settings.font_family.weight }};
+    --breadcrumbs-link-color: {{ block.settings.link_color }};
+    --breadcrumbs-link-hover-color: {{ block.settings.link_hover_color }};
+    --breadcrumbs-hover-underline: {{ block.settings.hover_underline }};
+    --breadcrumbs-separator-color: {{ block.settings.separator_color }};
+    --breadcrumbs-current-color: {{ block.settings.current_color }};
+  }
+{%- endstyle -%}
+
+<breadcrumbs-{{ block_id }} class="breadcrumbs breadcrumbs--{{ block_id }}" {{ block.shopify_attributes }}>
+  <nav class="breadcrumbs__nav" aria-label="Breadcrumb">
+    <div class="breadcrumbs__item">
+      <a href="{{ routes.root_url }}" class="breadcrumbs__link">{{ block.settings.home_text }}</a>
+      <span class="breadcrumbs__separator" aria-hidden="true">{{ block.settings.separator }}</span>
+    </div>
+
+    {%- if collection -%}
+      <div class="breadcrumbs__item">
+        <a href="{{ collection.url }}" class="breadcrumbs__link">{{ collection.title }}</a>
+        {%- if product -%}
+          <span class="breadcrumbs__separator" aria-hidden="true">{{ block.settings.separator }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if product -%}
+      <div class="breadcrumbs__item">
+        <span class="breadcrumbs__current" aria-current="page">{{ product.title }}</span>
+      </div>
+    {%- elsif collection -%}
+      <div class="breadcrumbs__item">
+        <span class="breadcrumbs__current" aria-current="page">{{ collection.title }}</span>
+      </div>
+    {%- elsif page -%}
+      <div class="breadcrumbs__item">
+        <span class="breadcrumbs__current" aria-current="page">{{ page.title }}</span>
+      </div>
+    {%- elsif article -%}
+      {%- if blog -%}
+        <div class="breadcrumbs__item">
+          <a href="{{ blog.url }}" class="breadcrumbs__link">{{ blog.title }}</a>
+          <span class="breadcrumbs__separator" aria-hidden="true">{{ block.settings.separator }}</span>
+        </div>
+      {%- endif -%}
+      <div class="breadcrumbs__item">
+        <span class="breadcrumbs__current" aria-current="page">{{ article.title }}</span>
+      </div>
+    {%- elsif blog -%}
+      <div class="breadcrumbs__item">
+        <span class="breadcrumbs__current" aria-current="page">{{ blog.title }}</span>
+      </div>
+    {%- endif -%}
+  </nav>
+</breadcrumbs-{{ block_id }}>
+
+<script>
+  (function() {
+    class BreadcrumbsBlock extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+    customElements.define('breadcrumbs-{{ block_id }}', BreadcrumbsBlock);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "home_text",
+      "label": "Home text",
+      "default": "Home"
+    },
+    {
+      "type": "select",
+      "id": "separator",
+      "label": "Separator",
+      "options": [
+        { "value": "/", "label": "Slash (/)" },
+        { "value": ">", "label": "Greater than (>)" },
+        { "value": "›", "label": "Single angle (›)" },
+        { "value": "»", "label": "Double angle (»)" },
+        { "value": "•", "label": "Bullet (•)" },
+        { "value": "—", "label": "Dash (—)" }
+      ],
+      "default": "/"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Item spacing",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "poppins_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#000000cf"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "hover_underline",
+      "label": "Hover underline",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "underline", "label": "Underline" }
+      ],
+      "default": "underline"
+    },
+    {
+      "type": "color",
+      "id": "current_color",
+      "label": "Current page color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#000000cf"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumbs"
+    }
+  ]
+}
+{% endschema %}
