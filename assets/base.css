@@ -442,6 +442,9 @@ p:empty {
 }
 
 /* For page-width sections, all content goes in the center column */
+.section--page-width {
+  --full-page-grid-central-column-width: min(1280px, var(--page-width) - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2));
+}
 .section--page-width > * {
   grid-column: 2;
 }
