@@ -3809,3 +3809,71 @@ text-component[shimmer]::after {
     width: var(--breadcrumbs-width, 100%);
   }
 }
+/* Masonry grid section – structure; settings via CSS vars from Liquid
+   .masonry-grid is also .section; do not set display so .section's display: grid is preserved for page-width */
+.masonry-grid {
+  width: 100%;
+  max-width: 100%;
+  padding: var(--masonry-grid-padding-top) var(--masonry-grid-padding-right) var(--masonry-grid-padding-bottom) var(--masonry-grid-padding-left);
+  background-color: var(--masonry-grid-background);
+}
+
+/* Direct child of .section; gets grid-column: 2 when section--page-width, so constrain min-width to respect column */
+.masonry-grid__inner {
+  display: grid;
+  grid-template-columns: repeat(var(--masonry-grid-mobile-columns, 1), 1fr);
+  gap: var(--masonry-grid-gap, 20px);
+  min-width: 0;
+}
+
+.masonry-grid__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--masonry-grid-border-radius, 8px);
+}
+
+.masonry-grid__image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--masonry-grid-border-radius, 8px);
+}
+
+.masonry-grid__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.masonry-grid__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--masonry-grid-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.masonry-grid__image-placeholder svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.masonry-grid__title {
+  margin-top: var(--masonry-grid-title-spacing, 12px);
+  color: var(--masonry-grid-foreground);
+  font-size: var(--masonry-grid-title-size, 18px);
+  text-align: var(--masonry-grid-title-align, left);
+  font-family: var(--masonry-grid-title-font);
+}
+
+@media screen and (min-width: 750px) {
+  .masonry-grid {
+    width: var(--masonry-grid-width, 100%);
+  }
+  .masonry-grid__inner {
+    grid-template-columns: repeat(var(--masonry-grid-columns, 3), 1fr);
+  }
+}

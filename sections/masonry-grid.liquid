@@ -1,0 +1,236 @@
+{% capture grid_items %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+{%- style -%}
+  .masonry-grid--{{ section.id }} {
+    --masonry-grid-width: {{ section.settings.desktop_width_percent }}%;
+    --masonry-grid-padding-top: {{ section.settings.section_padding_top }}px;
+    --masonry-grid-padding-right: {{ section.settings.section_padding_horizontal }}px;
+    --masonry-grid-padding-bottom: {{ section.settings.section_padding_bottom }}px;
+    --masonry-grid-padding-left: {{ section.settings.section_padding_horizontal }}px;
+    --masonry-grid-columns: {{ section.settings.columns_desktop }};
+    --masonry-grid-gap: {{ section.settings.grid_gap }}px;
+    --masonry-grid-border-radius: {{ section.settings.item_border_radius }}px;
+    --masonry-grid-background: {{ section.settings.color_scheme.settings.background }};
+    --masonry-grid-foreground: {{ section.settings.color_scheme.settings.foreground }};
+    --masonry-grid-border: {{ section.settings.color_scheme.settings.border }};
+    --masonry-grid-title-spacing: {{ section.settings.title_spacing }}px;
+    --masonry-grid-title-size: {{ section.settings.title_font_size }}px;
+    --masonry-grid-title-align: {{ section.settings.title_alignment }};
+    --masonry-grid-title-font: var(--font-{{ section.settings.title_font }}-family);
+    --masonry-grid-mobile-columns: {% if section.settings.mobile_layout == 'stack' %}1{% else %}2{% endif %};
+  }
+{%- endstyle -%}
+
+<div
+  class="masonry-grid masonry-grid--{{ section.id }} section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style"
+  style="{% render 'spacing-style', settings: section.settings %}"
+  data-testid="masonry-grid-{{ section.id }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="masonry-grid__inner">
+    {{ grid_items }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Masonry grid",
+  "class": "masonry-grid-section",
+  "blocks": [
+    {
+      "type": "_masonry-item"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        { "value": "stack", "label": "Stack" },
+        { "value": "masonry", "label": "Masonry" }
+      ],
+      "default": "stack",
+      "info": "Stack: 1 column. Masonry: 2 columns."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between items",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Item style"
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Title style"
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "Font",
+      "options": [
+        { "value": "body", "label": "Body" },
+        { "value": "heading", "label": "Heading" },
+        { "value": "subheading", "label": "Subheading" }
+      ],
+      "default": "heading"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Spacing above title",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Masonry grid",
+      "category": "t:categories.storytelling"
+    }
+  ]
+}
+{% endschema %}
