@@ -16,6 +16,9 @@
 }
 
 .masonry-grid__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--masonry-grid-gap, 20px);
   position: relative;
   overflow: hidden;
   border-radius: var(--masonry-grid-border-radius, 8px);

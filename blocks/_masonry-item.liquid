@@ -2,29 +2,113 @@
   assign item_image = block.settings.image
   assign item_title = block.settings.title
   assign item_height = block.settings.height | default: 300
+  assign item_height_mobile = block.settings.height_mobile | default: 300
+  assign item_link = block.settings.link
+  assign item_content_gap = block.settings.content_gap | default: 12
+  assign item_image_2 = block.settings.image_2
+  assign item_title_2 = block.settings.title_2
+  assign item_height_2 = block.settings.height_2 | default: 300
+  assign item_height_2_mobile = block.settings.height_2_mobile | default: 300
+  assign item_link_2 = block.settings.link_2
+  assign item_content_gap_2 = block.settings.content_gap_2 | default: 12
 -%}
 
-{%- if item_image != blank or item_title != blank -%}
-  <div class="masonry-grid__item" {{ block.shopify_attributes }}>
-    <div class="masonry-grid__image-wrapper" style="height: {{ item_height }}px;">
-      {%- if item_image != blank -%}
-        <img
-          src="{{ item_image | image_url: width: 800 }}"
-          alt="{{ item_image.alt | default: item_title | escape }}"
-          loading="lazy"
-          width="{{ item_image.width }}"
-          height="{{ item_image.height }}"
-          class="masonry-grid__image"
+{%- if item_image != blank or item_title != blank or item_image_2 != blank or item_title_2 != blank -%}
+  {%- style -%}
+    .masonry-grid__item--{{ block.id }} .masonry-grid__image-wrapper--1 {
+      height: {{ item_height_mobile }}px;
+    }
+    @media (min-width: 750px) {
+      .masonry-grid__item--{{ block.id }} .masonry-grid__image-wrapper--1 {
+        height: {{ item_height }}px;
+      }
+    }
+    .masonry-grid__item--{{ block.id }} .masonry-grid__image-wrapper--2 {
+      height: {{ item_height_2_mobile }}px;
+    }
+    @media (min-width: 750px) {
+      .masonry-grid__item--{{ block.id }} .masonry-grid__image-wrapper--2 {
+        height: {{ item_height_2 }}px;
+      }
+    }
+    .masonry-grid__item--{{ block.id }} .masonry-grid__item-content--1 {
+      display: flex;
+      flex-direction: column;
+      gap: {{ item_content_gap }}px;
+    }
+    .masonry-grid__item--{{ block.id }} .masonry-grid__item-content--2 {
+      display: flex;
+      flex-direction: column;
+      gap: {{ item_content_gap_2 }}px;
+    }
+    .masonry-grid__item-link:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  {%- endstyle -%}
+
+  <div class="masonry-grid__item masonry-grid__item--{{ block.id }}">
+    <div class="masonry-grid__item-content masonry-grid__item-content--1">
+      {%- if item_link != blank -%}
+        <a
+          href="{{ item_link }}"
+          class="masonry-grid__item-link"
+          aria-label="{{ item_title | default: 'View' | escape }}"
         >
-      {%- else -%}
-        <div class="masonry-grid__image-placeholder">
-          {{ 'image' | placeholder_svg_tag }}
-        </div>
       {%- endif -%}
+      <div class="masonry-grid__image-wrapper masonry-grid__image-wrapper--1">
+        {%- if item_image != blank -%}
+          <img
+            src="{{ item_image | image_url: width: 800 }}"
+            alt="{{ item_image.alt | default: item_title | escape }}"
+            loading="lazy"
+            width="{{ item_image.width }}"
+            height="{{ item_image.height }}"
+            class="masonry-grid__image"
+          >
+        {%- else -%}
+          <div class="masonry-grid__image-placeholder">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if item_title != blank -%}
+        <h3 class="masonry-grid__title">{{ item_title }}</h3>
+      {%- endif -%}
+      {%- if item_link != blank -%}</a>{%- endif -%}
     </div>
-    {%- if item_title != blank -%}
-      <h3 class="masonry-grid__title">{{ item_title }}</h3>
-    {%- endif -%}
+
+    <div class="masonry-grid__item-content masonry-grid__item-content--2">
+      {%- if item_link_2 != blank -%}
+        <a
+          href="{{ item_link_2 }}"
+          class="masonry-grid__item-link"
+          aria-label="{{ item_title_2 | default: 'View' | escape }}"
+        >
+      {%- endif -%}
+
+      <div class="masonry-grid__image-wrapper masonry-grid__image-wrapper--2">
+        {%- if item_image_2 != blank -%}
+          <img
+            src="{{ item_image_2 | image_url: width: 800 }}"
+            alt="{{ item_image_2.alt | default: item_title_2 | escape }}"
+            loading="lazy"
+            width="{{ item_image_2.width }}"
+            height="{{ item_image_2.height }}"
+            class="masonry-grid__image"
+          >
+        {%- else -%}
+          <div class="masonry-grid__image-placeholder">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if item_title_2 != blank -%}
+        <h3 class="masonry-grid__title">{{ item_title_2 }}</h3>
+      {%- endif -%}
+      {%- if item_link_2 != blank -%}</a>{%- endif -%}
+    </div>
   </div>
 {%- endif -%}
 
@@ -32,6 +116,10 @@
 {
   "name": "Masonry item",
   "settings": [
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
     {
       "type": "image_picker",
       "id": "image",
@@ -45,12 +133,86 @@
     {
       "type": "range",
       "id": "height",
-      "label": "Height",
+      "label": "Height (desktop)",
       "min": 150,
       "max": 600,
       "step": 10,
       "unit": "px",
       "default": 300
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Height (mobile)",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:settings.link"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap (image to title)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Title"
+    },
+    {
+      "type": "range",
+      "id": "height_2",
+      "label": "Height (desktop)",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "height_2_mobile",
+      "label": "Height (mobile)",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "t:settings.link"
+    },
+    {
+      "type": "range",
+      "id": "content_gap_2",
+      "label": "Gap (image to title)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 12
     }
   ],
   "presets": [
