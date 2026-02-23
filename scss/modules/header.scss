@@ -1,6 +1,10 @@
 .header__columns {
-  padding-block: var(--padding-xl);
-  padding-inline: var(--padding-xl);
+  padding-inline: 0 !important;
+
+  @media screen and (min-width: 750px) {
+    padding-block: var(--padding-xl) !important;
+    padding-inline: var(--padding-xl) !important;
+  }
 
   &.spacing-style {
     gap: 20px;

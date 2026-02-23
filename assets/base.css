@@ -2536,15 +2536,12 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 
 .cart-bubble__text {
   font-size: var(--font-size--3xs);
+  font-weight: bold;
   z-index: var(--layer-flat);
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.cart-bubble__text-count {
-  font-weight: bold;
 }
 
 /* Quantity selector */
@@ -3765,8 +3762,13 @@ text-component[shimmer]::after {
   }
 }
 .header__columns {
-  padding-block: var(--padding-xl);
-  padding-inline: var(--padding-xl);
+  padding-inline: 0 !important;
+}
+@media screen and (min-width: 750px) {
+  .header__columns {
+    padding-block: var(--padding-xl) !important;
+    padding-inline: var(--padding-xl) !important;
+  }
 }
 .header__columns.spacing-style {
   gap: 20px;
