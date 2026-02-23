@@ -78,16 +78,6 @@
         color-{{ block_settings.color_scheme }}
       "
     >
-      <button
-        class="button button-unstyled close-button menu-drawer__close-button"
-        type="button"
-        aria-label="{{ 'actions.close' | t }}"
-        on:click="/close"
-      >
-        <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
-        </span>
-      </button>
       <nav
         class="menu-drawer__navigation"
         style="
@@ -832,15 +822,15 @@
     position: fixed;
     transform: translateX(-100%);
     visibility: hidden;
-    height: var(--drawer-height);
     width: 100vw;
     max-width: 100vw;
     z-index: var(--layer-menu-drawer);
     left: 0;
-    top: 0;
+    top: var(--header-height);
+    height: calc(100dvh - var(--header-height));
     padding: 0;
     background-color: var(--color-background);
-    overflow: auto;
+    overflow-y: auto;
     display: flex;
     border-right: none;
     box-shadow: none;
@@ -849,6 +839,8 @@
     @media screen and (min-width: 750px) {
       width: 25rem;
       max-width: 25rem;
+      top: 0;
+      height: var(--drawer-height);
     }
 
     .header__drawer--desktop & {
@@ -856,16 +848,17 @@
     }
   }
 
-  .menu-drawer:has(details[open]) {
-    overflow: initial;
-  }
-
   .menu-drawer__backdrop {
     position: fixed;
-    top: 0;
+    top: var(--header-height);
     left: 0;
     width: 100vw;
-    height: 100dvh;
+    height: calc(100dvh - var(--header-height));
+
+    @media screen and (min-width: 750px) {
+      top: 0;
+      height: 100dvh;
+    }
     backdrop-filter: brightness(0.75);
     z-index: var(--layer-heightened);
     opacity: 0;
@@ -927,7 +920,7 @@
     list-style: none;
     padding-inline: 1.5rem;
     margin-inline: 0;
-    margin-block-start: 0;
+    margin-block-start: 30px;
   }
 
   .menu-drawer__menu--grid {

@@ -3771,7 +3771,12 @@ text-component[shimmer]::after {
   }
 }
 .header__columns.spacing-style {
-  gap: 20px;
+  gap: 10px;
+}
+@media screen and (min-width: 750px) {
+  .header__columns.spacing-style {
+    gap: 20px;
+  }
 }
 @media screen and (min-width: 750px) {
   .header__columns.spacing-style:has(.header__column--center header-menu) {

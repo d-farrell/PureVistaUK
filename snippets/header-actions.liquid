@@ -583,6 +583,13 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
+    overflow: visible;
+  }
+  @media screen and (max-width: 749px) {
+    .header-actions__action {
+      padding: 0;
+      width: 28px;
+    }
   }
 
   .header-actions__action .svg-wrapper {
