@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "main-404",
@@ -91,7 +92,7 @@
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 20,
-        "color_scheme": "",
+        "color_scheme": "scheme-eb124ff2-28a7-422c-b244-92e59be5406a",
         "padding-block-start": 100,
         "padding-block-end": 100
       }

@@ -9,6 +9,9 @@
  */
 {
   "current": {
+    "hide_homepage_from_search_engines": true,
+    "redirect_homepage": true,
+    "redirect_url": "/collections/all",
     "logo": "shopify://shop_images/purevistalogo.svg",
     "logo_height": 53,
     "logo_height_mobile": 31,

@@ -113,6 +113,10 @@
   href="{{ canonical_url }}"
 >
 
+{% if request.page_type == 'index' and settings.hide_homepage_from_search_engines == true %}
+  <meta name="robots" content="noindex, nofollow">
+{% endif %}
+
 {% if page_description %}
   <meta
     name="description"

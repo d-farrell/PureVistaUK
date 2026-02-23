@@ -36,6 +36,16 @@
     {% endif %}
 
     {{ content_for_header }}
+
+    {% if request.page_type == 'index'
+      and settings.redirect_homepage == true
+      and settings.redirect_url != blank
+      and request.design_mode != true
+    %}
+      <script>
+        window.location.href = '{{ settings.redirect_url }}';
+      </script>
+    {% endif %}
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">

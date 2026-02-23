@@ -8,6 +8,32 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Homepage Redirects and SEO",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "hide_homepage_from_search_engines",
+        "label": "Hide homepage from search engines",
+        "info": "If enabled, the homepage will not be indexed by search engines.",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "redirect_homepage",
+        "label": "Redirect homepage",
+        "info": "If enabled, the homepage will be redirected to the first collection.",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "redirect_url",
+        "label": "Redirect URL",
+        "info": "If redirect homepage is enabled, the homepage will be redirected to the URL you enter here.",
+        "visible_if": "{{ settings.redirect_homepage == true }}"
+      }
+    ]
+  },
+  {
     "name": "t:names.logo_and_favicon",
     "settings": [
       {
