@@ -391,9 +391,11 @@
     top: calc(100% - 1px + var(--border-bottom-width));
     z-index: var(--layer-header-menu);
     padding-inline: 0;
-    clip-path: rect(0 200% var(--submenu-height) 0); /* stylelint-disable-line */
-    transition: clip-path var(--submenu-animation-speed) var(--ease-out-cubic);
     border: 1px solid rgb(226 241 255);
+    opacity: 0;
+    transform: scale(0.8);
+    transform-origin: center center;
+    transition: opacity 120ms ease, transform 120ms ease, visibility 0s 120ms;
   }
 
   /* Show the submenus on hover */
@@ -406,12 +408,17 @@
     --submenu-content-opacity: 1;
 
     visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 120ms ease, transform 120ms ease, visibility 0s 0s;
   }
 
   .menu-list__list-item:has([data-animating]) > .menu-list__submenu {
     --submenu-content-opacity: 0;
 
     visibility: visible;
+    opacity: 0;
+    transform: scale(0.97);
 
     &::before {
       height: 0;
