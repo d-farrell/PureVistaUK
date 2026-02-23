@@ -525,6 +525,10 @@
     /* on mobile, header__column nodes are ignored to create a new grid-template-area based on all visible content */
     @media screen and (max-width: 749px) {
       display: contents;
+
+      &.header__column--right {
+        display: flex;
+      }
     }
   }
 
@@ -598,12 +602,10 @@
 
     @media screen and (max-width: 749px) {
       --header-mobile-bookend: 36px;
-      --header-template-columns: var(--header-mobile-bookend) 1fr
-        var(--header-mobile-bookend) var(--header-mobile-bookend) var(--header-mobile-bookend);
+      --header-template-columns: var(--header-mobile-bookend) 1fr auto;
 
-      grid-template-areas: 'leftA center rightA rightB rightC';
-      grid-column: span 3;
-      column-gap: 4px;
+      grid-template-areas: 'leftA center right';
+      column-gap: 0;
       align-items: center;
       padding-block: 0;
       padding-inline: var(--padding-sm) var(--padding-sm);
@@ -612,22 +614,11 @@
         grid-area: center;
       }
 
-      .search-action {
-        grid-area: rightA;
-      }
-
-      &:not(:has(header-actions)) .search-action {
-        grid-area: rightA;
-      }
-
-      &:not(:has(.account-actions)) .search-action {
-        grid-area: rightA;
-      }
-
-      header-actions {
-        grid-area: rightB;
+      .header__column--right {
+        grid-area: right;
         display: flex;
-        gap: 4px;
+        align-items: center;
+        gap: 8px;
       }
     }
   }
