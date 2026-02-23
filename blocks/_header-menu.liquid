@@ -283,20 +283,14 @@
 
   .menu-list__link-title {
     display: block;
-    border-radius: 9999px;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 1rem;
     padding-right: 1rem;
     text-transform: uppercase;
-    transition-property: all;
+    transition-property: color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
-  }
-  .menu-list__link-title:hover,
-  .menu-list__link-title:focus {
-    background-color: #e2f1ff;
-    color: #376bad;
   }
 
   .menu-list__link {
@@ -357,26 +351,14 @@
 
   /* the submenu background element to animate */
   .overflow-menu::after {
-    content: '';
-    position: absolute;
-    top: calc(100% - 1px + var(--border-bottom-width));
-    left: 0;
-    width: 100%;
-    height: var(--submenu-height);
-    background-color: var(--color-background);
-    box-shadow: var(--shadow-popover);
-    clip-path: inset(0.5px 0 -100px 0); /* stylelint-disable-line */
-    opacity: var(--submenu-opacity, 1);
-    transition: height var(--submenu-animation-speed) var(--ease-out-cubic),
-      opacity var(--animation-speed-slow) var(--ease-out-cubic) var(--animation-speed-fast);
-    z-index: calc(var(--layer-header-menu) - 1);
+    content: none;
   }
 
   /** mega menu **/
   .menu-list__submenu,
   .overflow-menu::part(overflow) {
-    --submenu-padding-block-start: var(--padding-3xl);
-    --submenu-padding-block-end: var(--padding-3xl);
+    --submenu-padding-block-start: var(--padding-xl);
+    --submenu-padding-block-end: var(--padding-xl);
 
     background-color: transparent;
   }
@@ -396,13 +378,15 @@
     visibility: hidden;
     background-color: var(--color-background);
     position: absolute;
-    width: 100%;
+    width: auto;
+    min-width: 260px;
     left: 0;
     top: calc(100% - 1px + var(--border-bottom-width));
     z-index: var(--layer-header-menu);
-    padding-inline: var(--padding-inline);
+    padding-inline: 0;
     clip-path: rect(0 100% var(--submenu-height) 0); /* stylelint-disable-line */
     transition: clip-path var(--submenu-animation-speed) var(--ease-out-cubic);
+    box-shadow: var(--shadow-popover);
   }
 
   /* Show the submenus on hover */
@@ -432,7 +416,7 @@
     grid-column: 2;
     padding-block-start: var(--submenu-padding-block-start);
     padding-block-end: var(--submenu-padding-block-end);
-    padding-inline: var(--section-padding-inline);
+    padding-inline: var(--padding-xl);
   }
 
   .overflow-menu::part(overflow) {
@@ -509,9 +493,7 @@
 
   .menu-list__submenu-inner {
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: block;
     opacity: var(--submenu-content-opacity);
     transition: var(--submenu-content-animation);
   }
@@ -520,14 +502,14 @@
     font-family: var(--menu-child-font-family);
     font-style: var(--menu-child-font-style);
     font-weight: var(--menu-child-font-weight);
-    font-size: var(--menu-child-font-size);
+    font-size: var(--font-size--xl);
     line-height: var(--menu-child-font-line-height);
-    text-transform: var(--menu-child-font-case);
+    text-transform: uppercase;
     color: var(--menu-child-font-color);
-    white-space: normal;
+    white-space: nowrap;
     text-decoration: none;
-    display: inline-flex;
-    padding: var(--padding-2xs) 0;
+    display: block;
+    padding-block: var(--padding-lg);
     transition: color var(--animation-speed) var(--animation-easing);
 
     &:hover {
@@ -599,42 +581,19 @@
   }
 
   .mega-menu__grid {
-    display: grid;
-    grid-template-columns: repeat(var(--menu-columns-tablet), minmax(0, 1fr));
-    gap: var(--menu-vertical-gap) var(--menu-horizontal-gap);
+    display: block;
     width: 100%;
-
-    @media screen and (min-width: 990px) {
-      grid-template-columns: repeat(var(--menu-columns-desktop), minmax(0, 1fr));
-    }
   }
 
   .mega-menu__column {
-    grid-column: span 1;
+    display: block;
   }
 
-  .mega-menu__column--span-2 {
-    grid-column: span 2;
-  }
-
-  .mega-menu__column--span-3 {
-    grid-column: span 3;
-  }
-
-  .mega-menu__column--span-4 {
-    grid-column: span 4;
-  }
-
+  .mega-menu__column--span-2,
+  .mega-menu__column--span-3,
+  .mega-menu__column--span-4,
   .mega-menu__column--wide-collection-image {
-    grid-column: span 1;
-
-    @media screen and (min-width: 990px) {
-      grid-column: span 2;
-    }
-  }
-
-  .mega-menu__submenu .mega-menu__column--wide-collection-image {
-    grid-column: span 1;
+    display: block;
   }
 
   .mega-menu__content-list {
@@ -660,14 +619,7 @@
   }
 
   .mega-menu__list {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: span var(--menu-columns-tablet);
-    gap: var(--menu-vertical-gap) var(--menu-horizontal-gap);
-
-    @media screen and (min-width: 990px) {
-      grid-column: span var(--menu-columns-desktop);
-    }
+    display: block;
   }
 
   .mega-menu__content {
@@ -712,6 +664,18 @@
   .mega-menu__submenu {
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
+  }
+
+  /* Override section/mega-menu layout for simple dropdown style */
+  .menu-list__submenu .section {
+    display: block;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+
+  .menu-list__submenu .mega-menu {
+    padding: 0;
   }
 {% endstylesheet %}
 
