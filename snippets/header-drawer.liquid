@@ -18,7 +18,7 @@
 
   # Force accordion style for mobile drawer
   assign block_settings_drawer_accordion = true
-  assign block_settings_drawer_dividers = true
+  assign block_settings_drawer_dividers = false
 
   if block_settings.menu_style == 'featured_collections'
     assign ratio = block_settings.featured_collections_aspect_ratio
@@ -970,7 +970,11 @@
   .menu-drawer__menu > .menu-drawer__list-item {
     display: flex;
     min-height: unset;
-    border-bottom: 1px solid rgb(226 241 255);
+  }
+
+  .menu-drawer__list-item--deep {
+    padding: 8px 16px;
+    margin-bottom: 16px;
   }
 
   .menu-drawer__list-item--deep .menu-drawer__list-item,
@@ -1030,8 +1034,8 @@
     min-height: unset;
     font-family: var(--menu-top-level-font-family);
     font-style: var(--menu-top-level-font-style);
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 400;
+    font-size: 14px;
     line-height: 1.2;
     text-transform: uppercase;
     color: rgb(2 50 92);
@@ -1219,19 +1223,39 @@
     display: flex;
   }
 
-  /* Inset child list box */
+  /* Child list — mirrors desktop dropdown container */
   .menu-drawer__list-item--deep > accordion-custom > details[open] > .menu-drawer__menu--childlist {
     margin-inline: 0;
-    padding-inline: 1.5rem;
-    padding-block: 0.25rem 0.75rem;
-    background-color: rgb(245 249 255);
-    border-top: 1px solid rgb(226 241 255);
-    border-bottom: 1px solid rgb(226 241 255);
+    padding-inline: 0;
+    padding-block: 0;
+    margin-block-start: 20px;
+    background-color: var(--color-background);
+    border: 1px solid rgb(226 241 255);
   }
 
   /* No dividers between child items */
   .menu-drawer__menu--childlist > .menu-drawer__list-item {
     border-bottom: none;
+  }
+
+  /* Child links — mirrors desktop .mega-menu__link */
+  .menu-drawer__list-item--deep .menu-drawer__menu--childlist .menu-drawer__menu-item--child {
+    font-size: 14px;
+    color: #000;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 1rem;
+    padding-block: 1rem;
+    font-weight: 400;
+    line-height: 1.2;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    &:hover {
+      background-color: rgb(226 241 255);
+      color: #000;
+    }
   }
 
   .menu-drawer svg {
