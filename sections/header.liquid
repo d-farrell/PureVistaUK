@@ -620,6 +620,11 @@
         align-items: center;
         gap: 8px;
       }
+
+      /* Hide standalone search in right column on mobile — it renders inside header-actions instead */
+      .header__column--right > .search-action {
+        display: none;
+      }
     }
   }
 
