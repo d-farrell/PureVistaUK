@@ -283,14 +283,21 @@
 
   .menu-list__link-title {
     display: block;
+    border-radius: 9999px;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 1rem;
     padding-right: 1rem;
     text-transform: uppercase;
-    transition-property: color;
+    transition-property: background-color, color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
+  }
+
+  .menu-list__list-item:where(:hover, :focus-within) .menu-list__link-title,
+  .menu-list__list-item:has([aria-expanded='true']) .menu-list__link-title {
+    background-color: #e2f1ff;
+    color: #376bad;
   }
 
   .menu-list__link {
@@ -380,13 +387,13 @@
     position: absolute;
     width: auto;
     min-width: 260px;
-    left: 0;
+    left: auto;
     top: calc(100% - 1px + var(--border-bottom-width));
     z-index: var(--layer-header-menu);
     padding-inline: 0;
-    clip-path: rect(0 100% var(--submenu-height) 0); /* stylelint-disable-line */
+    clip-path: rect(0 200% var(--submenu-height) 0); /* stylelint-disable-line */
     transition: clip-path var(--submenu-animation-speed) var(--ease-out-cubic);
-    box-shadow: var(--shadow-popover);
+    border: 1px solid rgb(226 241 255);
   }
 
   /* Show the submenus on hover */
@@ -416,7 +423,8 @@
     grid-column: 2;
     padding-block-start: var(--submenu-padding-block-start);
     padding-block-end: var(--submenu-padding-block-end);
-    padding-inline: var(--padding-xl);
+    padding-inline: 0;
+    padding-block-end: 0;
   }
 
   .overflow-menu::part(overflow) {
@@ -440,8 +448,8 @@
   /* Make overflow menu scrollable when content exceeds viewport */
   .menu-list__submenu-inner,
   .overflow-menu::part(overflow-list) {
-    max-height: calc(80vh - var(--header-height));
-    overflow-y: auto;
+    /* max-height: calc(80vh - var(--header-height));
+    overflow-y: auto; */
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: rgb(var(--color-foreground-rgb) / var(--opacity-40)) transparent;
@@ -499,21 +507,20 @@
   }
 
   .mega-menu__link {
-    font-family: var(--menu-child-font-family);
-    font-style: var(--menu-child-font-style);
-    font-weight: var(--menu-child-font-weight);
-    font-size: var(--font-size--xl);
-    line-height: var(--menu-child-font-line-height);
-    text-transform: uppercase;
-    color: var(--menu-child-font-color);
+    font-size: 14px;
+    color: #000;
     white-space: nowrap;
     text-decoration: none;
     display: block;
-    padding-block: var(--padding-lg);
-    transition: color var(--animation-speed) var(--animation-easing);
+    border-radius: 0;
+    padding: 1rem;
+    text-transform: uppercase;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
 
     &:hover {
-      color: var(--menu-child-active-font-color);
+      background-color: rgb(226 241 255);
     }
   }
 
