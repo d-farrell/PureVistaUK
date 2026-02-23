@@ -442,9 +442,6 @@ p:empty {
 }
 
 /* For page-width sections, all content goes in the center column */
-.section--page-width {
-  --full-page-grid-central-column-width: min(1280px, var(--page-width) - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2));
-}
 .section--page-width > * {
   grid-column: 2;
 }
@@ -2546,6 +2543,10 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   justify-content: center;
 }
 
+.cart-bubble__text-count {
+  font-weight: bold;
+}
+
 /* Quantity selector */
 .quantity-selector {
   --quantity-selector-width: 124px;
@@ -3763,6 +3764,21 @@ text-component[shimmer]::after {
     font-size: max(1rem, 100%);
   }
 }
+.header__columns {
+  padding-block: var(--padding-xl);
+  padding-inline: var(--padding-xl);
+}
+.header__columns.spacing-style {
+  gap: 20px;
+}
+@media screen and (min-width: 750px) {
+  .header__columns.spacing-style:has(.header__column--center header-menu) {
+    --header-left: auto;
+    --header-center: 1fr;
+    --header-right: auto;
+  }
+}
+
 /* Breadcrumbs block – structure; settings via CSS vars from Liquid */
 .breadcrumbs {
   display: block;

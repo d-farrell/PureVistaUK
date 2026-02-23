@@ -1,0 +1,16 @@
+.header__columns {
+  padding-block: var(--padding-xl);
+  padding-inline: var(--padding-xl);
+
+  &.spacing-style {
+    gap: 20px;
+
+    @media screen and (min-width: 750px) {
+      &:has(.header__column--center header-menu) {
+        --header-left: auto;
+        --header-center: 1fr;
+        --header-right: auto;
+      }
+    }
+  }
+}
