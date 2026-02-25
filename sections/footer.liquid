@@ -22,23 +22,42 @@
           assign logo_width = block.settings.logo_width
         -%}
 
-        {%- if logo -%}
-          <div class="pv-footer__logo" {{ block.shopify_attributes }}>
+        <div
+          class="pv-footer__logo"
+          style="--pv-footer-logo-width: {{ logo_width }}px;"
+          {{ block.shopify_attributes }}
+        >
+          {%- if logo -%}
+            {%- liquid
+              assign logo_url = logo | image_url: width: 3840
+              assign is_svg = logo_url | split: '?' | first | downcase | split: '.' | last
+            -%}
             <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-              {{-
-                logo
-                | image_url: width: 3840
-                | image_tag:
-                  width: logo.width,
-                  widths: '120, 240, 352, 480',
-                  height: logo.height,
-                  class: 'pv-footer__logo-img',
-                  alt: shop.name,
-                  loading: 'lazy'
-              -}}
+              {%- if is_svg == 'svg' -%}
+                <img
+                  src="{{ logo_url }}"
+                  class="pv-footer__logo-img pv-footer__logo-img--svg"
+                  alt="{{ shop.name | escape }}"
+                  loading="lazy"
+                  style="width: {{ logo_width }}px; height: auto; max-width: 100%;"
+                >
+              {%- else -%}
+                {{-
+                  logo
+                  | image_url: width: 3840
+                  | image_tag:
+                    width: logo.width,
+                    widths: '120, 240, 352, 480',
+                    height: logo.height,
+                    class: 'pv-footer__logo-img',
+                    alt: shop.name,
+                    loading: 'lazy',
+                    sizes: '(min-width: 750px) min(var(--pv-footer-logo-width), 400px), 160px'
+                -}}
+              {%- endif -%}
             </a>
-          </div>
-        {%- endif -%}
+          {%- endif -%}
+        </div>
       {%- endif -%}
     {%- endfor -%}
 
@@ -210,19 +229,22 @@
   .pv-footer__logo-img {
     width: auto;
     height: auto;
+    max-width: 160px;
     object-fit: contain;
     @media screen and (min-width: 750px) {
-      width: 213px;
-      height: auto;
+      max-width: min(var(--pv-footer-logo-width, 200px), 400px);
     }
   }
 
   .pv-footer__content {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 20px;
+    border-top: 1px solid rgb(2 50 92 / 0.05);
+    padding-top: 50px;
     @media screen and (min-width: 990px) {
       flex-direction: row;
+      gap: 50px;
     }
   }
 
@@ -231,7 +253,7 @@
     grid-template-columns: 1fr;
     gap: 32px;
     @media screen and (min-width: 750px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
     @media screen and (min-width: 990px) {
@@ -291,19 +313,19 @@
     flex-direction: column;
     gap: 16px;
     @media screen and (min-width: 990px) {
-      flex: 0 0 280px;
-      max-width: 320px;
+      flex: 0 0 365px;
+      max-width: 365px;
     }
   }
 
   .pv-footer__subscribe-heading {
     font-family: var(--font-heading--family);
     font-weight: var(--font-heading--weight);
-    font-size: 14px;
-    line-height: 1.4;
-    letter-spacing: 0.06em;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 900;
     text-transform: uppercase;
-    color: var(--color-foreground-heading);
+    color: #9eb2d0;
     margin: 0;
   }
 
@@ -354,7 +376,7 @@
     border-left: 1px solid var(--color-input-border);
     background-color: transparent;
     cursor: pointer;
-    color: var(--color-primary);
+    color: var(--color-primary-button-background);
     transition: background-color 0.2s ease;
     padding: 0;
   }
