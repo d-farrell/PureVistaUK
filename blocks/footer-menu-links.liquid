@@ -1,0 +1,115 @@
+
+{%- if block.settings.menu != blank -%}
+  <nav
+    class="
+      footer-menu-links
+      custom-typography
+      footer-utilities__text
+      {% if block.settings.font_size != '' %}custom-font-size{% endif %}
+    "
+    style="{% render 'typography-style', preset: 'custom', settings: block.settings %}"
+    aria-label="{{ block.settings.menu.title }}"
+    {{ block.shopify_attributes }}
+  >
+    <ul class="footer-menu-links__list list-unstyled" role="list">
+      {%- for link in block.settings.menu.links -%}
+        <li class="footer-menu-links__item">
+          <a href="{{ link.url }}" class="footer-utilities__text">
+            {{- link.title -}}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </nav>
+{%- endif -%}
+
+{% stylesheet %}
+  .footer-menu-links__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-menu-links__item a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-menu-links__item a:hover {
+    opacity: 0.7;
+  }
+
+  .footer-menu-links__item a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Menu links",
+  "tag": null,
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "t:settings.size",
+      "options": [
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        }
+      ],
+      "default": "0.75rem"
+    },
+    {
+      "type": "select",
+      "id": "case",
+      "label": "t:settings.case",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.default"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.uppercase"
+        }
+      ],
+      "default": "uppercase"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu links",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}
