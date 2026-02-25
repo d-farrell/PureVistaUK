@@ -1,5 +1,3 @@
-
-
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
   class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
@@ -36,8 +34,7 @@
                   height: logo.height,
                   class: 'pv-footer__logo-img',
                   alt: shop.name,
-                  loading: 'lazy',
-                  sizes: '(min-width: 750px) ' | append: logo_width | append: 'px, 160px'
+                  loading: 'lazy'
               -}}
             </a>
           </div>
@@ -57,8 +54,47 @@
                 {%- if block.settings.menu != blank -%}
                   <ul class="pv-footer__nav-list list-unstyled" role="list">
                     {%- for link in block.settings.menu.links -%}
-                      <li class="pv-footer__nav-item">
-                        <a href="{{ link.url }}">{{ link.title }}</a>
+                      {%- liquid
+                        assign is_heading = false
+                        assign link_title = link.title
+                        if link.title contains ':: Heading'
+                          assign is_heading = true
+                          assign link_title = link.title | split: ':: Heading' | first | strip
+                        endif
+                      -%}
+                      <li class="pv-footer__nav-item {% if is_heading %}pv-footer__nav-item--heading {% else %}pv-footer__nav-item--link{% endif %} {% if link.links != blank %}pv-footer__nav-item--has-children{% endif %}">
+                        <a
+                          href="{{ link.url }}"
+                          {% if is_heading %}
+                            class="pv-footer__nav-link pv-footer__nav-link--heading"
+                          {% endif %}
+                        >
+                          {{- link_title -}}
+                        </a>
+                        {%- if link.links != blank -%}
+                          <ul class="pv-footer__nav-list pv-footer__nav-list--children list-unstyled" role="list">
+                            {%- for child in link.links -%}
+                              {%- liquid
+                                assign child_heading = false
+                                assign child_title = child.title
+                                if child.title contains ':: Heading'
+                                  assign child_heading = true
+                                  assign child_title = child.title | split: ':: Heading' | first | strip
+                                endif
+                              -%}
+                              <li class="pv-footer__nav-item {% if child_heading %}pv-footer__nav-item--heading {% else %}pv-footer__nav-item--link{% endif %}">
+                                <a
+                                  href="{{ child.url }}"
+                                  {% if child_heading %}
+                                    class="pv-footer__nav-link pv-footer__nav-link--heading"
+                                  {% endif %}
+                                >
+                                  {{- child_title -}}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
                       </li>
                     {%- endfor -%}
                   </ul>
@@ -173,20 +209,20 @@
 
   .pv-footer__logo-img {
     width: auto;
-    height: 40px;
+    height: auto;
     object-fit: contain;
     @media screen and (min-width: 750px) {
-      height: 50px;
+      width: 213px;
+      height: auto;
     }
   }
 
   .pv-footer__content {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 50px;
     @media screen and (min-width: 990px) {
       flex-direction: row;
-      gap: 40px;
     }
   }
 
@@ -210,7 +246,6 @@
     flex-direction: column;
   }
 
-
   .pv-footer__nav-list {
     display: flex;
     flex-direction: column;
@@ -220,22 +255,33 @@
     list-style: none;
   }
 
-  .pv-footer__nav-item a {
+  .pv-footer__nav-list--children {
+    margin-top: 4px;
+    gap: 4px;
+  }
+
+  .pv-footer__nav-item--link a {
     font-family: var(--font-body--family);
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.5;
-    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--color-foreground);
+    color: rgb(96 114 130);
     text-decoration: none;
     transition: opacity 0.2s ease;
   }
 
-  .pv-footer__nav-item a:hover {
+  .pv-footer__nav-link--heading {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #02325c;
+  }
+
+  .pv-footer__nav-item--link a:hover {
     opacity: 0.7;
   }
 
-  .pv-footer__nav-item a:focus-visible {
+  .pv-footer__nav-item--link a:focus-visible {
     outline: 2px solid var(--color-foreground);
     outline-offset: 2px;
   }
