@@ -984,12 +984,13 @@ body:has(.header[transparent]) #header-group > *:not(.header-section) {
   grid-template-columns: 1fr 1fr;
   gap: var(--product-grid-gap);
   margin: auto;
-  padding: 0;
+  padding: 0 16px;
   list-style: none;
 }
 
 @media screen and (min-width: 750px) {
   .product-grid {
+    padding: 0;
     grid-template-columns: var(--product-grid-columns-desktop);
   }
 }
@@ -2069,9 +2070,9 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 }
 
 .tax-note.tax-note.tax-note {
-  font-size: min(0.85em, var(--font-paragraph--size));
-  font-weight: var(--font-paragraph--weight);
-  color: rgb(var(--color-foreground-rgb)/var(--opacity-subdued-text));
+  font-size: 14.4px;
+  font-weight: inherit;
+  color: inherit;
 }
 
 product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {

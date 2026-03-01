@@ -50,24 +50,9 @@
   {% render 'price',
     show_unit_price: true,
     product_resource: product_resource,
-    show_sale_price_first: block_settings.show_sale_price_first
+    show_sale_price_first: block_settings.show_sale_price_first,
+    show_tax_info: block_settings.show_tax_info
   %}
-
-  {% if block_settings.show_tax_info %}
-    <div class="tax-note">
-      {%- if cart.duties_included and cart.taxes_included -%}
-        {{ 'content.duties_and_taxes_included' | t }}
-      {%- elsif cart.taxes_included -%}
-        {{ 'content.taxes_included' | t }}
-      {%- elsif cart.duties_included -%}
-        {{ 'content.duties_included' | t }}
-      {%- endif -%}
-
-      {%- if shop.shipping_policy.body != blank -%}
-        {{ 'content.shipping_policy' | t }}
-      {%- endif -%}
-    </div>
-  {% endif %}
 
   {%- if selected_variant != blank and block_settings.show_installments -%}
     <div class="installments">
@@ -86,6 +71,19 @@
 
 {% # theme-check-disable %}
 {% stylesheet %}
+  product-price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  product-price .tax-note.tax-note {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: lowercase;
+  }
+
   .tax-note:empty {
     display: none;
   }
