@@ -798,6 +798,13 @@
     }
   }
 
+  .facets-drawer__filters .facets__filters-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 16px;
+  }
+
   .facets:not(.facets--drawer) .facets__filters-wrapper {
     display: flex;
     flex-direction: column;
@@ -825,12 +832,13 @@
     --icon-opacity: 0.5;
 
     background-color: #f3f4f6;
-    border-radius: 4px;
-    padding: 16px;
+    padding: 0;
 
     @media screen and (min-width: 750px) {
       --variant-picker-swatch-width: 26px;
       --variant-picker-swatch-height: 26px;
+      padding: 16px;
+      border-radius: 4px;
     }
 
     font-size: var(--font-h5--size);
@@ -887,7 +895,12 @@
 
   /* Facets - Inputs */
   .facets__inputs-wrapper {
-    margin: 0 var(--padding-lg);
+    margin: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .facets__inputs-wrapper {
+      margin: 0 var(--padding-lg);
+    }
   }
 
   .facets__inputs .show-more {
@@ -941,6 +954,13 @@
     display: flex;
     gap: 16px;
     flex-direction: column;
+    margin-top: 10px;
+  }
+  @media screen and (min-width: 750px) {
+    .facets__inputs-wrapper:not(:has(.facets__inputs-list)),
+    .facets__inputs-wrapper .facets__inputs-list {
+      margin-top: 0;
+    }
   }
 
   @media screen and (min-width: 750px) {
@@ -1008,11 +1028,16 @@
 
   /* Facets - Panel */
   .facets__panel {
-    padding: 0 var(--drawer-padding);
+    padding: var(--drawer-padding);
     background-color: #f3f4f6;
-    border-radius: 4px;
-    padding: 16px;
   }
+  @media screen and (min-width: 750px) {
+    .facets__panel {
+      border-radius: 4px;
+      padding: 16px;
+    }
+  }
+
   .facets__panel-sorting {
     background-color: transparent;
   }
