@@ -27,6 +27,7 @@
   assign has_volume_pricing = null
   assign price_min = null
   assign price_max = null
+  assign show_variant_price_range = false
 
   # For product cards (collection/search pages), calculate min/max across all variants
   # For product pages, only use the selected variant's pricing
@@ -39,6 +40,9 @@
     assign price_min = product_resource.price_min
     assign price_max = product_resource.price_max
     assign has_volume_pricing = product_resource.quantity_price_breaks_configured? | default: false
+    if product_resource.price_varies
+      assign show_variant_price_range = true
+    endif
   else
     # Product page: only use selected variant's pricing
     if selected_variant.quantity_price_breaks.size > 0
@@ -46,6 +50,11 @@
       assign price_min = selected_variant.quantity_price_breaks.last.price
       assign price_max = selected_variant.price
     endif
+  endif
+
+  assign have_price_range_values = false
+  if price_min != blank and price_max != blank
+    assign have_price_range_values = true
   endif
 
   # Determine if currency code should be shown
@@ -73,8 +82,8 @@
 -%}
 
 <div ref="priceContainer">
-  {% if has_volume_pricing %}
-    {% comment %} Volume pricing display {% endcomment %}
+  {% if has_volume_pricing or show_variant_price_range %}
+    {% comment %} Volume or variant price range display {% endcomment %}
     {% if show_compare_price %}
       <span role="group">
         <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
@@ -83,7 +92,11 @@
     {% endif %}
     <span role="group">
       <span class="visually-hidden">{{ 'content.price_range' | t }}&nbsp;</span>
-      <span class="price price-range price--large">{{ price_min }} - {{ price_max }}</span>
+      {% if have_price_range_values %}
+        <span class="price price-range price--large">{{ price_min }} - {{ price_max }}</span>
+      {% else %}
+        <span class="price">{{ price | default: '&nbsp;' }}</span>
+      {% endif %}
     </span>
   {% else %}
     {% comment %} Standard pricing display {% endcomment %}
