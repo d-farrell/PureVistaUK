@@ -58,8 +58,11 @@
           {%- endif -%}
         </span>
       </facet-status-component>
-      <span class="svg-wrapper icon-caret icon-animated">
-        {{- 'icon-caret.svg' | inline_asset_content -}}
+      <span class="svg-wrapper facets__toggle-icon facets__toggle-icon--plus" aria-hidden="true">
+        {{- 'icon-plus-border.svg' | inline_asset_content -}}
+      </span>
+      <span class="svg-wrapper facets__toggle-icon facets__toggle-icon--minus" aria-hidden="true">
+        {{- 'icon-minus-border.svg' | inline_asset_content -}}
       </span>
     </summary>
     <floating-panel-component
@@ -158,6 +161,23 @@
 </accordion-custom>
 
 {% stylesheet %}
+  .facets__toggle-icon--minus {
+    display: none;
+  }
+
+  details[open] > summary .facets__toggle-icon--plus {
+    display: none;
+  }
+
+  details[open] > summary .facets__toggle-icon--minus {
+    display: flex;
+  }
+
+  .facets__summary .facets__toggle-icon {
+    height: 24px;
+    width: 24px;
+  }
+
   /* Price filter */
   .price-facet {
     container-type: inline-size;
@@ -218,7 +238,7 @@
   }
 
   .price-facet__highest-price {
-    padding: var(--padding-xs) 0 var(--padding-sm);
+    padding: var(--padding-xs) var(--padding-lg) var(--padding-sm) var(--padding-lg);
   }
 
   .facets--horizontal .price-facet__highest-price {

@@ -2420,23 +2420,24 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 }
 
 .checkbox {
-  --checkbox-size: 22px;
+  --checkbox-size: 18px;
   --checkbox-top: 50%;
   --checkbox-left: 1.5px;
   --checkbox-offset: 3px;
-  --checkbox-border-radius: 7px;
+  --checkbox-border-radius: 0px;
   --checkbox-label-padding: 8px;
   --checkbox-path-opacity: 0;
   --checkbox-cursor: pointer;
-  --checkbox-border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-35-55));
+  --checkbox-border: 1.5px solid #9e9e9e;
+  --checkbox-checked-color: #ff5722;
   position: relative;
   display: flex;
   align-items: center;
 }
 @media screen and (min-width: 750px) {
   .checkbox {
-    --checkbox-size: 16px;
-    --checkbox-border-radius: 5px;
+    --checkbox-size: 18px;
+    --checkbox-border-radius: 0px;
     --checkbox-label-padding: 6px;
   }
 }
@@ -2463,8 +2464,8 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   outline-offset: var(--focus-outline-offset);
 }
 .checkbox__input:checked + .checkbox__label .icon-checkmark {
-  background-color: var(--color-foreground);
-  border-color: var(--color-foreground);
+  background-color: var(--checkbox-checked-color);
+  border-color: var(--checkbox-checked-color);
 }
 .checkbox__input:disabled + .checkbox__label .icon-checkmark {
   background-color: var(--input-disabled-background-color);
@@ -2485,7 +2486,8 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   flex-shrink: 0;
   border: var(--checkbox-border);
   border-radius: var(--checkbox-border-radius);
-  background-color: var(--color-background);
+  background-color: #ffffff;
+  transition: background-color var(--animation-speed) var(--animation-easing), border-color var(--animation-speed) var(--animation-easing);
 }
 
 .checkbox__label-text {
@@ -2496,7 +2498,7 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 }
 
 .checkbox .icon-checkmark path {
-  stroke: var(--color-background);
+  stroke: #ffffff;
   opacity: var(--checkbox-path-opacity);
   transition: opacity var(--animation-speed) var(--animation-easing);
 }

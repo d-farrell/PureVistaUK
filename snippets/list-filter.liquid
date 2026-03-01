@@ -101,8 +101,11 @@
             </span>
           </facet-status-component>
         {% endif %}
-        <span class="svg-wrapper icon-caret icon-animated">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
+        <span class="svg-wrapper facets__toggle-icon facets__toggle-icon--plus" aria-hidden="true">
+          {{- 'icon-plus-border.svg' | inline_asset_content -}}
+        </span>
+        <span class="svg-wrapper facets__toggle-icon facets__toggle-icon--minus" aria-hidden="true">
+          {{- 'icon-minus-border.svg' | inline_asset_content -}}
         </span>
       </div>
     </summary>
@@ -426,6 +429,23 @@
 </accordion-custom>
 
 {% stylesheet %}
+  .facets__toggle-icon--minus {
+    display: none;
+  }
+
+  details[open] > summary .facets__toggle-icon--plus {
+    display: none;
+  }
+
+  details[open] > summary .facets__toggle-icon--minus {
+    display: flex;
+  }
+
+  .facets__summary .facets__toggle-icon {
+    height: 24px;
+    width: 24px;
+  }
+
   .facets input:checked + label {
     font-weight: 500;
   }
