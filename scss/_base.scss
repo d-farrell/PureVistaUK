@@ -2784,9 +2784,9 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 /* Pills (used in facets and predictive search) */
 
 .pills__pill {
-  --pills-pill-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-5-15));
+  --pills-pill-background-color: #02325c;
 
-  color: var(--color-foreground);
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2798,10 +2798,6 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   background-color: var(--pills-pill-background-color);
   transition: background-color var(--animation-speed) var(--animation-easing);
 
-  &:hover {
-    --pills-pill-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
-  }
-
   @media screen and (max-width: 749px) {
     padding: var(--padding-xs) var(--padding-md);
   }
@@ -2811,7 +2807,7 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   --close-icon-opacity: 0.4;
   --icon-stroke-width: 1px;
 
-  color: var(--color-foreground);
+  color: #fff;
 }
 
 .pills__pill--swatch {

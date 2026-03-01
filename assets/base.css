@@ -984,13 +984,12 @@ body:has(.header[transparent]) #header-group > *:not(.header-section) {
   grid-template-columns: 1fr 1fr;
   gap: var(--product-grid-gap);
   margin: auto;
-  padding: 0 16px;
+  padding: 0;
   list-style: none;
 }
 
 @media screen and (min-width: 750px) {
   .product-grid {
-    padding: 0;
     grid-template-columns: var(--product-grid-columns-desktop);
   }
 }
@@ -2070,9 +2069,9 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 }
 
 .tax-note.tax-note.tax-note {
-  font-size: 14.4px;
-  font-weight: inherit;
-  color: inherit;
+  font-size: min(0.85em, var(--font-paragraph--size));
+  font-weight: var(--font-paragraph--weight);
+  color: rgb(var(--color-foreground-rgb)/var(--opacity-subdued-text));
 }
 
 product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
@@ -2643,8 +2642,8 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 
 /* Pills (used in facets and predictive search) */
 .pills__pill {
-  --pills-pill-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-5-15));
-  color: var(--color-foreground);
+  --pills-pill-background-color: #02325c;
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2656,9 +2655,6 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   background-color: var(--pills-pill-background-color);
   transition: background-color var(--animation-speed) var(--animation-easing);
 }
-.pills__pill:hover {
-  --pills-pill-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
-}
 @media screen and (max-width: 749px) {
   .pills__pill {
     padding: var(--padding-xs) var(--padding-md);
@@ -2668,7 +2664,7 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 .pills__pill > .svg-wrapper {
   --close-icon-opacity: 0.4;
   --icon-stroke-width: 1px;
-  color: var(--color-foreground);
+  color: #fff;
 }
 
 @media screen and (max-width: 749px) {
@@ -3772,12 +3768,7 @@ text-component[shimmer]::after {
   }
 }
 .header__columns.spacing-style {
-  gap: 10px;
-}
-@media screen and (min-width: 750px) {
-  .header__columns.spacing-style {
-    gap: 20px;
-  }
+  gap: 20px;
 }
 @media screen and (min-width: 750px) {
   .header__columns.spacing-style:has(.header__column--center header-menu) {
