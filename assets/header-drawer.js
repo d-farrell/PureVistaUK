@@ -55,9 +55,11 @@ class HeaderDrawer extends Component {
 
   /**
    * Toggle the main menu drawer
+   * @param {Event} [event]
    */
-  toggle() {
-    return this.isOpen ? this.close() : this.open();
+  toggle(event) {
+    event?.preventDefault();
+    return this.isOpen ? this.close() : this.open(event);
   }
 
   /**
@@ -65,11 +67,13 @@ class HeaderDrawer extends Component {
    * @param {Event} [event]
    */
   open(event) {
+    event?.preventDefault();
     const details = this.#getDetailsElement(event);
     const summary = details.querySelector('summary');
 
     if (!summary) return;
 
+    details.setAttribute('open', '');
     summary.setAttribute('aria-expanded', 'true');
 
     this.preventInitialAccordionAnimations(details);
@@ -87,6 +91,7 @@ class HeaderDrawer extends Component {
    * @param {Event} [event]
    */
   back(event) {
+    event?.preventDefault();
     this.#close(this.#getDetailsElement(event));
   }
 
