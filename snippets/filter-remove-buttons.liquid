@@ -75,9 +75,9 @@
           {% endif %}
 
           {% if filter.type == 'boolean' or show_filter_label %}
-            {{ filter.label | escape }}: {{ value.label | escape }}
+            {{ filter.label | remove: 'FILTER - ' | escape }}: {{ value.label | escape }}
           {% else %}
-            {{ value.label | escape }}
+            {{ value.label | remove: 'FILTER - ' | escape }}
           {% endif %}
 
           <span class="svg-wrapper svg-wrapper--smaller">

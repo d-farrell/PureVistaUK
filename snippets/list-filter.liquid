@@ -31,11 +31,11 @@
     data-close-with-escape="true"
   {% endif %}
 
-  {% if filter_style == 'vertical' %}
-    open
+  {% if filter.active_values.size > 0 %}
     open-by-default-on-mobile
     open-by-default-on-desktop
   {% endif %}
+
   data-filter-param-name="{{ filter.param_name | escape | replace: '.', '-' }}"
 >
   <details
@@ -44,12 +44,12 @@
     {% if filter_style == 'horizontal' %}
       data-auto-close-details="desktop"
     {% endif %}
-    {% if filter_style == 'vertical' %}
+    {% if filter.active_values.size > 0 %}
       open
     {% endif %}
   >
     <summary class="facets__summary">
-      <span class="facets__label">{{ filter.label }}</span>
+      <span class="facets__label">{{ filter.label | remove: 'FILTER - ' }}</span>
 
       <div class="facets__status-wrapper">
         {% if is_swatch %}
