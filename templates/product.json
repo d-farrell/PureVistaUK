@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "17717027540dfc5bd5": {
@@ -16,7 +7,7 @@
           "type": "breadcrumbs",
           "settings": {
             "home_text": "Home",
-            "separator": "/",
+            "separator": "\/",
             "desktop_width_percent": 100,
             "padding_vertical": 15,
             "padding_horizontal": 0,
@@ -166,7 +157,7 @@
                   "type": "text",
                   "name": "Product title",
                   "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
+                    "text": "<h1>{{ closest.product.title }}<\/h1>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -348,7 +339,7 @@
                     "text_jNfepX": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.whats_included | metafield_tag }}</p>",
+                        "text": "<p>{{ closest.product.metafields.custom.whats_included | metafield_tag }}<\/p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -387,7 +378,7 @@
                     "text_ijjNJ6": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
+                        "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.<\/p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -424,34 +415,17 @@
                     "width": 20
                   },
                   "blocks": {
-                    "text_bqALp7": {
-                      "type": "text",
+                    "custom_liquid_YWxpHL": {
+                      "type": "custom-liquid",
+                      "name": "t:names.custom_liquid",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.dimensions.value }}</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
+                        "custom_liquid": "{%- liquid\n  assign segments = ''\n  if product.metafields.custom.dimension_length.value != blank\n    assign segments = segments | append: 'L: ' | append: product.metafields.custom.dimension_length.value\n  endif\n  if product.metafields.custom.dimension_width.value != blank\n    if segments != ''\n      assign segments = segments | append: ' x '\n    endif\n    assign segments = segments | append: 'W: ' | append: product.metafields.custom.dimension_width.value\n  endif\n  if product.metafields.custom.dimension_depth.value != blank\n    if segments != ''\n      assign segments = segments | append: ' x '\n    endif\n    assign segments = segments | append: 'D: ' | append: product.metafields.custom.dimension_depth.value\n  endif\n-%}\n{%- if segments != '' -%}\n  {{ segments }}\n{%- endif -%}"
                       },
                       "blocks": {}
                     }
                   },
                   "block_order": [
-                    "text_bqALp7"
+                    "custom_liquid_YWxpHL"
                   ]
                 },
                 "accordion_row_R3BCwf": {
@@ -467,7 +441,7 @@
                     "text_fmzLFt": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>{{ closest.product.metafields.custom.product_compatibility | metafield_tag }}</p>",
+                        "text": "<p>{{ closest.product.metafields.custom.product_compatibility | metafield_tag }}<\/p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -506,7 +480,7 @@
                     "text_HJAVNC": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.<\/p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -571,6 +545,28 @@
                   "block_order": [
                     "text_MeikrT"
                   ]
+                },
+                "accordion_row_Rxfmfn": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Documents & Downloads",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "custom_liquid_8E3rmC": {
+                      "type": "custom-liquid",
+                      "name": "t:names.custom_liquid",
+                      "settings": {
+                        "custom_liquid": "{%- if product.metafields.custom.file_1.value != blank -%}\n  <a href=\"{{ product.metafields.custom.file_1.value.url }}\" target=\"_blank\">\n    {{- product.metafields.custom.file_1_link_text.value | default: 'Download File 1' -}}\n  <\/a>\n  <br\/>\n{%- endif -%}\n{%- if product.metafields.custom.file_2.value != blank -%}\n  <a href=\"{{ product.metafields.custom.file_2.value.url }}\" target=\"_blank\">\n    {{- product.metafields.custom.file_2_link_text.value | default: 'Download File 2' -}}\n  <\/a>\n  <br\/>\n{%- endif -%}\n{%- if product.metafields.custom.file_3.value != blank -%}\n  <a href=\"{{ product.metafields.custom.file_3.value.url }}\" target=\"_blank\">\n    {{- product.metafields.custom.file_3_link_text.value | default: 'Download File 3' -}}\n  <\/a>\n{%- endif -%}"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "custom_liquid_8E3rmC"
+                  ]
                 }
               },
               "block_order": [
@@ -580,7 +576,8 @@
                 "accordion_row_DCpbbc",
                 "accordion_row_R3BCwf",
                 "accordion_row_ziTYmU",
-                "accordion_row_rfWaaJ"
+                "accordion_row_rfWaaJ",
+                "accordion_row_Rxfmfn"
               ]
             }
           },
@@ -612,7 +609,7 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h4>Similar Products</h4>",
+            "text": "<h4>Similar Products<\/h4>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
